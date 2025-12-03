@@ -7,22 +7,21 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{ route('products.store') }}" method="POST">
+    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="name">Product Name:</label>
-        <input type="text" id="name" name="name">
-        
-        <label for="description">Description</label>
-        <input type="text" name="description" id="description">
+        <input type="text" id="name" name="name"><br><br>
 
-        <label for="price">Price</label>
-        <input type="number" name="price" id="price">
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description"><br><br>
 
-        <label for="image"></label>
-        <input type="file" id="image" name="image">
+        <label for="price">Price:</label>
+        <input type="number" name="price" id="price"><br><br>
+
+        <label for="image">Product Image:</label>
+        <input type="file" id="image" name="image"><br><br>
 
         <button type="submit">Submit</button>
-
     </form>
 </body>
 </html>

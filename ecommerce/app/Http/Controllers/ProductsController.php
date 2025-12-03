@@ -9,7 +9,7 @@ class ProductsController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Products::all();
         return view('products.index', compact('products'));
     }
 
@@ -32,23 +32,23 @@ class ProductsController extends Controller
 
         $validated['image'] = $path;
 
-        Product::create($validated);
+        Products::create($validated);
 
         return redirect()->route('products.index')
             ->with('success', 'Product Added!');
     }
 
-    public function show(Product $product)
+    public function show(Products $product)
     {
         return view('products.show', compact('product'));
     }
 
-    public function edit(Product $product)
+    public function edit(Products $product)
     {
         return view('products.edit', compact('product'));
     }
 
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Products $product)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:124',
@@ -68,7 +68,7 @@ class ProductsController extends Controller
             ->with('success', 'Product Updated!');
     }
 
-    public function destroy(Product $product)
+    public function destroy(Products $product)
     {
         $product->delete();
 
