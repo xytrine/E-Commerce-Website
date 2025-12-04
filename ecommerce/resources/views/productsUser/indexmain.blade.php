@@ -7,23 +7,21 @@
     <title>Document</title>
 </head>
 <body>
-   <div>
-    <h1>To-Do List</h1>
-    <a href="{{ route('products.create') }}">Add new product</a>
-    <br>
+        <h1>Most Purchased Items!</h1>
+        <a href="{{ route('cart.view') }}">View Cart</a><br>
     @foreach ($products as $product)
         <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="200">
         <h2>{{$product->name}}</h2>
         <p>{{$product->description}}</p>
         <p>{{$product->price}} ₱</p>
 
-    <form action="{{ route ('products.destroy', $product->id)}}" method="POST">
-         <a href="{{ route('products.edit', $product->id)}}">Edit Product</a>
-        @csrf
-        @method('DELETE')
-        <button type="submit" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+    <form action="{{ route('cart.add', $product->id) }}" method="POST">
+    @csrf
+    <button type="submit">Add to Cart</button>
     </form>
-    </div>
-     @endforeach
+
+    @endforeach
+
+    
 </body>
 </html>

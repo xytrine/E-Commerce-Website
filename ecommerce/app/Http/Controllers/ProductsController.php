@@ -75,4 +75,11 @@ class ProductsController extends Controller
         return redirect()->route('products.index')
             ->with('success', 'Product Deleted!');
     }
+
+    public function userIndex()
+    {
+        $products = Products::all();
+        return view('productsUser.indexmain', compact('products'));
+    }
+
 }
