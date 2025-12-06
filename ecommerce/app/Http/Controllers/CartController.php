@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -48,6 +49,8 @@ public function view()
     return view('productsUser.cart', compact('cart', 'total'));
 }
 
+
+
 public function checkout()
 {
     $cart = session()->get('cart', []);
@@ -56,9 +59,30 @@ public function checkout()
         return redirect()->back()->with('error', 'Your cart is empty.');
     }
 
+    $total = 0;
+    foreach ($cart as $item) {
+        $total += $item['price'] * $item['quantity'];
+    }
+
+    Order::create([
+        'user_id' => auth()->id(),
+        'items'   => json_encode($cart),
+        'total'   => $total,
+        'status'  => 'pending',
+    ]);
+
+
     session()->forget('cart');
 
-    return redirect()->back()->with('success', 'Order confirmed! Thank you for your purchase.');
+    return redirect()->route('order.confirmation')->with('success', 'Order placed successfully!');
 }
+
+public function index()
+{
+    $orders = Order::where('user_id', auth()->id())->get();
+
+    return view('productsUser.orders', compact('orders'));
+}
+
 
 }

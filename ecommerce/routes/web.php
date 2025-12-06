@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,6 +22,13 @@ Route::get('/cart', [CartController::class, 'view'])->name('cart.view');
 Route::post('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 
 Route::delete('/cart/{productId}', [CartController::class, 'destroy'])->name('cart.destroy');
+
+Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index');
+
+Route::get('/order-confirmation', [OrderController::class, 'confirmation'])->name('order.confirmation');
+
+
+
 
 
 Route::get('/dashboard', function () {
